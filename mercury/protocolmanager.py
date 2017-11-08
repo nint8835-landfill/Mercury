@@ -1,10 +1,15 @@
-from .exceptions import InvalidProtocolException, UnsupportedOperationException
+from .exceptions import InvalidProtocolException, UnsupportedOperationException, DuplicateProtocolException
 
 
 class ProtocolManager(object):
 
     def __init__(self):
         self._protocols = {}
+
+    def register_protocol(self, protocol):
+        if protocol.prefix in self._protocols:
+            raise DuplicateProtocolException("There is already a protocol registered with the prefix \"{}\"".format(protocol.prefix))
+        self._protocols[protocol.prefix] = protocol
 
     def send_message(self, target, contents):
         protocol_prefix = target.split(":")[0]

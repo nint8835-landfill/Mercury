@@ -3,3 +3,6 @@ class InvalidProtocolException(Exception):
 
 class UnsupportedOperationException(Exception):
     pass
+
+class DuplicateProtocolException(Exception):
+    pass
